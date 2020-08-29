@@ -40,6 +40,8 @@ export default {
       // console.log(res.data)
       if (res.data.statusCode === 200) {
         this.$toast.success(res.data.message)
+        // 保存token
+        // 跳转页面
       } else {
         this.$toast.fail(res.data.message)
       }
