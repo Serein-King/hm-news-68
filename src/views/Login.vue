@@ -9,7 +9,7 @@
       name="用户名"
       label="用户名"
       placeholder="用户名"
-      :rules=rules.username
+      :rules='rules.username'
     />
     <van-field
       v-model="password"
@@ -17,23 +17,23 @@
       name="密码"
       label="密码"
       placeholder="密码"
-      :rules=rules.password
-    />
+      :rules='rules.password'
+     />
     <div style="margin: 16px;">
       <van-button round block type="info" native-type="submit">
-        提交
+      登录
       </van-button>
     </div>
-</van-form>
+     <p class="tips">没有账号？<router-link to="/register">去注册</router-link></p>
+     </van-form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   methods: {
     async login () {
-      const res = await axios.post('http://localhost:3000/login', {
+      const res = await this.$axios.post('http://localhost:3000/login', {
         username: this.username,
         password: this.password
       })
@@ -67,5 +67,9 @@ export default {
 </script>
 
 <style lang='less'>
-
+.tips{
+  font-size: 16px;
+  text-align: right;
+  padding: 15px;
+}
 </style>
