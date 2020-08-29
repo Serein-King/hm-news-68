@@ -6,6 +6,9 @@ import './styles/iconfont.css'
 // 全局的把 vant组件都导入好了
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import 'amfe-flexible'
+import HmHeader from './components/HmHeader.vue'
+Vue.component('hm-header', HmHeader)
 Vue.use(Vant)
 // 自动按需引入组件 (推荐)
 // import { Button } from 'vant'
