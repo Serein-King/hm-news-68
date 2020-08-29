@@ -8,7 +8,9 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import 'amfe-flexible'
 import HmHeader from './components/HmHeader.vue'
+import HmLogo from './components/HmLogo.vue'
 Vue.component('hm-header', HmHeader)
+Vue.component('hm-logo', HmLogo)
 Vue.use(Vant)
 // 自动按需引入组件 (推荐)
 // import { Button } from 'vant'
