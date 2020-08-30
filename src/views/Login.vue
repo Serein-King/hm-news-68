@@ -31,19 +31,30 @@
 
 <script>
 export default {
+  created () {
+    // console.log(this.$route.query)
+    const { username, password } = this.$route.params
+    this.username = username
+    this.password = password
+  },
   methods: {
     async login () {
-      const res = await this.$axios.post('http://localhost:3000/login', {
+      const res = await this.$axios.post('login', {
         username: this.username,
         password: this.password
       })
       // console.log(res.data)
-      if (res.data.statusCode === 200) {
-        this.$toast.success(res.data.message)
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
         // 保存token
         // 跳转页面
+        this.$router.push('/user')
+        // this.$router.push({
+        //   path: '/user'
+        // })
       } else {
-        this.$toast.fail(res.data.message)
+        this.$toast.fail(message)
       }
     }
   },
@@ -66,10 +77,13 @@ export default {
 }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 .tips{
   font-size: 16px;
   text-align: right;
   padding: 15px;
+  a{
+    color:orange
+  }
 }
 </style>

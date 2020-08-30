@@ -28,26 +28,13 @@
       注册
       </van-button>
     </div>
-     <p class="tips">已有账号<router-link to="/login">去登录</router-link></p>
+     <p class="tips">已有账号?<router-link to="/login">去登录</router-link></p>
      </van-form>
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    async  register () {
-      const res = await this.$axios.post('http://localhost:3000/register', this.user)
-      console.log(res)
-      if (res.data.statusCode === 200) {
-        this.$toast.success(res.data.message)
-        this.$router.push('/login')
-      } else {
-        this.$toast.fail(res.data.message)
-      }
-    }
-
-  },
   data () {
     return {
       user: {
@@ -70,10 +57,33 @@ export default {
         ]
       }
     }
+  },
+  methods: {
+    async  register () {
+      const res = await this.$axios.post('/register', this.user)
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
+        // this.$router.push(`/login?username=${this.user.username}&password=${this.user.password}`)
+        this.$router.push({
+          name: 'login',
+          params: this.user
+        })
+      } else {
+        this.$toast.fail(message)
+      }
+    }
   }
 }
 </script>
 
-<style lang='less'>
-
+<style lang='less' scoped>
+.tips{
+  font-size: 16px;
+  text-align: right;
+  padding: 15px;
+  a{
+    color:orange
+  }
+}
 </style>
