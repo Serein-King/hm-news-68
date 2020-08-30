@@ -33,6 +33,7 @@
             <template>设置</template>
             <!-- <template #content></template> -->
         </hm-navitem>
+        <div style='margin:15px'><van-button type="primary" block @click='logout'>退出</van-button></div>
 </div>
 </template>
 
@@ -56,16 +57,29 @@ export default {
     const { data, statusCode } = res.data
     if (statusCode === 200) {
       this.user = data
-    } else if (statusCode === 200) {
-      this.$toast.fail('用户验证失败')
-      this.$router.push('/login')
-      localStorage.removeItem('token')
-      localStorage.removeItem('userId')
+    }
+  },
+  methods: {
+    async logout () {
+    //   console.log(123)
+    // 跳出提示框
+    //   async await 等到失败的结果 要用 try catch的 语法
+      try {
+        await this.$dialog.confirm({
+          title: '温馨提示',
+          message: '您确定要退出吗？'
+        })
+        localStorage.removeItem('token')
+        localStorage.removeItem('userId')
+        this.$router.push('/login')
+        this.$toast('退出成功')
+      } catch {
+        this.$toast('取消退出')
+      }
     }
   }
 }
 </script>
-
 <style lang='less' scoped>
 .user{
     .header{
