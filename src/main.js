@@ -10,11 +10,17 @@ import 'amfe-flexible'
 import HmHeader from './components/HmHeader.vue'
 import HmLogo from './components/HmLogo.vue'
 import axios from 'axios'
+import HmNavItem from './components/HmNavItem.vue'
+import moment from 'moment'
+Vue.filter('time', input => {
+  return moment(input).format('YYYY-MM-DD')
+})
 // 把axios挂在到vue 的原型上
 Vue.prototype.$axios = axios
 // g给axios 配置默认的baseUrl,基准地址
 axios.defaults.baseURL = 'http://localhost:3000'
 Vue.component('hm-header', HmHeader)
+Vue.component('hm-navitem', HmNavItem)
 Vue.component('hm-logo', HmLogo)
 Vue.use(Vant)
 // 自动按需引入组件 (推荐)
@@ -23,7 +29,7 @@ Vue.use(Vant)
 // import Button from 'vant/lib/button';
 // import 'vant/lib/button/style';
 Vue.config.productionTip = false
-new Vue({
+window.vm = new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')

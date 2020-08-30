@@ -44,10 +44,12 @@ export default {
         password: this.password
       })
       // console.log(res.data)
-      const { statusCode, message } = res.data
+      const { statusCode, message, data } = res.data
       if (statusCode === 200) {
         this.$toast.success(message)
         // 保存token
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('userId', data.user.id)
         // 跳转页面
         this.$router.push('/user')
         // this.$router.push({
