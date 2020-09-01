@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import User from '../views/User.vue'
 import Edit from '../views/Edit.vue'
+import Demo from '../views/Demo.vue'
 Vue.use(VueRouter)
 // 控制台报错
 // // 全局的把push的异常给处理了
@@ -16,7 +17,8 @@ const routes = [
   { path: '/login', component: Login, name: 'login' },
   { path: '/register', component: Register, name: 'register' },
   { path: '/user', component: User, name: 'user' },
-  { path: '/edit', component: Edit, name: 'edit' }
+  { path: '/edit', component: Edit, name: 'edit' },
+  { path: '/demo', component: Demo, name: 'demo' }
 ]
 const router = new VueRouter({
   routes
