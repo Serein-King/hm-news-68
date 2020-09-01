@@ -6,6 +6,8 @@ import Register from '../views/Register.vue'
 import User from '../views/User.vue'
 import Edit from '../views/Edit.vue'
 import Demo from '../views/Demo.vue'
+import MyFollow from '../views/MyFollow.vue'
+import MyComment from '../views/MyComment.vue'
 Vue.use(VueRouter)
 // 控制台报错
 // // 全局的把push的异常给处理了
@@ -18,7 +20,9 @@ const routes = [
   { path: '/register', component: Register, name: 'register' },
   { path: '/user', component: User, name: 'user' },
   { path: '/edit', component: Edit, name: 'edit' },
-  { path: '/demo', component: Demo, name: 'demo' }
+  { path: '/demo', component: Demo, name: 'demo' },
+  { path: '/myfollow', component: MyFollow, name: 'myfollow' },
+  { path: '/mycomment', component: MyComment, name: 'mycomment' }
 ]
 const router = new VueRouter({
   routes
@@ -26,7 +30,7 @@ const router = new VueRouter({
 // 配置全局的导航守卫
 router.beforeEach(function (to, from, next) {
   const token = localStorage.getItem('token')
-  const authUrls = ['/user', '/edit']
+  const authUrls = ['/user', '/edit', '/myfollow']
   if (!authUrls.includes(to.path) || token) {
     next()
   } else {
