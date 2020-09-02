@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 .place{
      height: 50px;
 }
