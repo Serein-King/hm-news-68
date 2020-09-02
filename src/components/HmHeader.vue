@@ -1,11 +1,15 @@
 <template>
- <div class="hm-header">
+<div class="box">
+  <div class="place"></div>
+  <div class="hm-header">
      <div class="back" @click='back'>
          <span class="iconfont iconjiantou2"></span>
      </div>
      <div class="title"><slot></slot> </div>
      <div class="extra"></div>
  </div>
+</div>
+
 </template>
 
 <script>
@@ -19,7 +23,15 @@ export default {
 </script>
 
 <style lang='less'>
+.place{
+     height: 50px;
+}
 .hm-header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    background-color: #fff;
     height: 50px;
     border: 1px solid #ccc;
     display: flex;
