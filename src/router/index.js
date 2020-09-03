@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // 导入注册登录组件
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-import User from '../views/User.vue'
-import Edit from '../views/Edit.vue'
-import Demo from '../views/Demo.vue'
-import MyFollow from '../views/MyFollow.vue'
-import MyComment from '../views/MyComment.vue'
-import MyStar from '../views/MyStar.vue'
+import Login from '../views/user/Login.vue'
+import Register from '../views/user/Register.vue'
+import User from '../views/user/User.vue'
+import Edit from '../views/user/Edit.vue'
+import Demo from '../views/user/Demo.vue'
+import MyFollow from '../views/user/MyFollow.vue'
+import MyComment from '../views/user/MyComment.vue'
+import MyStar from '../views/user/MyStar.vue'
+import Index from '../views/news/Index.vue'
 Vue.use(VueRouter)
 // 控制台报错
 // // 全局的把push的异常给处理了
@@ -24,7 +25,8 @@ const routes = [
   { path: '/demo', component: Demo, name: 'demo' },
   { path: '/myfollow', component: MyFollow, name: 'myfollow' },
   { path: '/mycomment', component: MyComment, name: 'mycomment' },
-  { path: '/mystar', component: MyStar, name: 'mystar' }
+  { path: '/mystar', component: MyStar, name: 'mystar' },
+  { path: '/', component: Index, name: 'index' }
 ]
 const router = new VueRouter({
   routes
