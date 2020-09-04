@@ -10,6 +10,8 @@ import MyFollow from '../views/user/MyFollow.vue'
 import MyComment from '../views/user/MyComment.vue'
 import MyStar from '../views/user/MyStar.vue'
 import Index from '../views/news/Index.vue'
+import Manage from '../views/news/Manage.vue'
+import PostDetail from '../views/news/PostDetail.vue'
 Vue.use(VueRouter)
 // 控制台报错
 // // 全局的把push的异常给处理了
@@ -26,7 +28,9 @@ const routes = [
   { path: '/myfollow', component: MyFollow, name: 'myfollow' },
   { path: '/mycomment', component: MyComment, name: 'mycomment' },
   { path: '/mystar', component: MyStar, name: 'mystar' },
-  { path: '/', component: Index, name: 'index' }
+  { path: '/', component: Index, name: 'index' },
+  { path: '/manage', component: Manage, name: 'manage' },
+  { path: '/postdetail/:id', component: PostDetail, name: 'postdetail' }
 ]
 const router = new VueRouter({
   routes
