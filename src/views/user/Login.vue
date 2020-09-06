@@ -51,7 +51,11 @@ export default {
         localStorage.setItem('token', data.token)
         localStorage.setItem('userId', data.user.id)
         // 跳转页面
-        this.$router.push('/user')
+        if (this.$route.query.back) {
+          this.$router.back()
+        } else {
+          this.$router.push('/user')
+        }
         // this.$router.push({
         //   path: '/user'
         // })

@@ -12,6 +12,7 @@ import MyStar from '../views/user/MyStar.vue'
 import Index from '../views/news/Index.vue'
 import Manage from '../views/news/Manage.vue'
 import PostDetail from '../views/news/PostDetail.vue'
+import Comment from '../views/user/Comment.vue'
 Vue.use(VueRouter)
 // 控制台报错
 // // 全局的把push的异常给处理了
@@ -30,7 +31,9 @@ const routes = [
   { path: '/mystar', component: MyStar, name: 'mystar' },
   { path: '/', component: Index, name: 'index' },
   { path: '/manage', component: Manage, name: 'manage' },
-  { path: '/postdetail/:id', component: PostDetail, name: 'postdetail' }
+  { path: '/postdetail/:id', component: PostDetail, name: 'postdetail' },
+  { path: '/comment', component: Comment, name: 'comment' }
+
 ]
 const router = new VueRouter({
   routes

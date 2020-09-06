@@ -72,7 +72,7 @@ export default {
         return
       }
       const res = await this.$axios.get('/category')
-      console.log(res)
+      // console.log(res)
       const { statusCode, data } = res.data
       if (statusCode === 200) {
         this.tabList = data
@@ -92,6 +92,10 @@ export default {
       })
       const { statusCode, data } = res.data
       if (statusCode === 200) {
+        if (this.pageIndex === 1) {
+          this.newsList = []
+        // console.log('NESLIST', this.newsList)
+        }
         this.newsList = [...this.newsList, ...data]
         console.log(this.newsList)
         // 数据加载完成 把loading 改成 fasle
@@ -109,17 +113,17 @@ export default {
         // 加载下一页数据
         this.pageIndex++
         this.getNewsList(this.tabList[this.active].id)
-      }, 1500)
+      }, 1000)
     },
     onRefresh () {
-      console.log('下拉')
+      // console.log('下拉')
+      this.pageIndex = 1
+      this.finished = false
+      this.loading = true
+      this.newsList = []
       setTimeout(() => {
-        this.pageIndex = 1
-        this.finished = false
-        this.loading = true
-        this.newsList = []
         this.getNewsList(this.tabList[this.active].id)
-      }, 1500)
+      }, 1000)
     }
   },
   watch: {
