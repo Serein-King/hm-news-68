@@ -35,11 +35,15 @@
      <!-- 评论 -->
     <div class="comment-list">
       <h3>精彩跟贴</h3>
-      <hm-comment  :comment="comment" v-for="comment in commentList" :key="comment.id"></hm-comment>
+      <hm-comment  :comment="comment" v-for="comment in commentList" :key="comment.id" @reply='replyFn'></hm-comment>
     </div>
-     <div class="footer">
+     <div class="footer-textarea" v-if="isShowTextarea">
+       <textarea :placeholder="'回复:'+nickname" ref="textarea" v-model="content"></textarea>
+       <van-button type="primary" @click='publish'>发送</van-button>
+     </div>
+      <div class="footer-input" v-else>
        <div class="search">
-         <input type="text" placeholder="回复">
+         <input type="text" placeholder="回复" @focus='focusFn'>
        </div>
        <span class="iconfont iconpinglun-"><i>200</i></span>
        <span class="iconfont iconshoucang" :class="{now:post.has_star}" @click='star'></span>
@@ -55,22 +59,70 @@ export default {
       post: {
         user: {}
       },
-      commentList: []
+      commentList: [],
+      // 是否显示文本域
+      isShowTextarea: false,
+      content: '',
+      nickname: '',
+      replyId: ''
     }
   },
   created () {
     this.getInfo()
     // 获取文章的评论列表
     this.getCommentList()
+    // 给bus注册自定义事件
+    this.$bus.$on('reply', this.replyFn)
+    // this.$bus.$on('reply', async (id, nickname) => {
+    //   console.log('bus', id, nickname)
+    // })
+  },
+  destroyed () {
+    // 移除$bus.的自定义事件用 off
+    // 移除 bus 上所有的事件 this.$bus.off()
+    // 移除 bus 上所有 reply的事件 this.$bus.off('reply')
+    this.$bus.$off('reply', this.replyFn)
   },
   methods: {
+    async  replyFn (id, nickname) {
+      // console.log('父组件的', id, nickname)
+      this.isShowTextarea = true
+      await this.$nextTick()
+      this.$refs.textarea.focus()
+      // 回显昵称
+      this.nickname = '@' + nickname
+      this.replyId = id
+    },
+    async publish () {
+      const res = await this.$axios.post(`/post_comment/${this.post.id}`, {
+        content: this.content,
+        parent_id: this.replyId
+      })
+      // console.log(res)
+      const { statusCode, message } = res.data
+      if (statusCode === 200) {
+        this.$toast.success(message)
+        this.getCommentList()
+        this.content = ''
+        this.replyId = ''
+        this.nickname = ''
+        this.isShowTextarea = false
+      }
+    },
+    async focusFn () {
+      this.isShowTextarea = true
+      // 文本域自动获取焦点
+      await this.$nextTick()
+      this.$refs.textarea.focus()
+      // this.isShowTextarea = false
+    },
     async getCommentList () {
       const id = this.$route.params.id
       const res = await this.$axios.get(`/post_comment/${id}`)
       const { statusCode, data } = res.data
       if (statusCode === 200) {
         this.commentList = data
-        console.log(this.commentList)
+        // console.log(this.commentList)
       }
     },
     async star () {
@@ -111,7 +163,7 @@ export default {
       const { statusCode, data } = res.data
       if (statusCode === 200) {
         this.post = data
-        console.log(this.post)
+        // console.log(this.post)
       }
     },
     async follow () {
@@ -135,10 +187,10 @@ export default {
         this.getInfo()
       }
     },
-    async  like () {
+    async like () {
       // 说明登录了
       if (this.noLogin()) return
-      console.log('发送请求登录')
+      // console.log('发送请求登录')
       const res = await this.$axios.get(`/post_like/${this.post.id}`)
       // console.log(res.data)
       const { statusCode, message } = res.data
@@ -247,7 +299,7 @@ export default {
      padding: 10px 0;
    }
  }
- .footer{
+ .footer-input{
    background-color: #fff;
    width: 100%;
    height: 50px;
@@ -293,4 +345,26 @@ export default {
      }
    }
  }
+.footer-textarea{
+  width: 100%;
+  height: 120px;
+  display: flex;
+  position: fixed;
+  z-index: 999;
+  bottom: 0;
+  padding: 10px;
+  align-items: flex-end;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  justify-content: space-around;
+  textarea{
+    width: 260px;
+    height: 80px;
+    background-color: #ccc;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    padding: 10px;
+  }
+}
 </style>

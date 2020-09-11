@@ -8,9 +8,9 @@
               <p>{{comment.user.nickname}}</p>
               <p>{{comment.create_date | now}}</p>
           </div>
-          <div class="right">回复</div>
+          <div class="right" @click='reply'>回复</div>
       </div>
-      <hm-floor :comment='comment.parent' v-if="comment.parent"></hm-floor>
+      <hm-floor :count="getLength(0,comment)" :comment='comment.parent' v-if="comment.parent"></hm-floor>
       <div class="content">{{comment.content}}</div>
   </div>
 </template>
@@ -18,7 +18,23 @@
 <script>
 export default {
   props: {
-    comment: Object
+    comment: Object,
+    count: Number
+  },
+  methods: {
+    reply () {
+      // 点击回复 把id和nickname 传递给父组件
+      // console.log(this.comment.id, this.comment.user.nickname)
+      // this.$emit('reply', this.comment.id, this.comment.user.nickname)
+      this.$bus.$emit('reply', this.comment.id, this.comment.user.nickname)
+    },
+    getLength (num, data) {
+      if (data.parent) {
+        return this.getLength(num + 1, data.parent)
+      } else {
+        return num
+      }
+    }
   }
 }
 </script>

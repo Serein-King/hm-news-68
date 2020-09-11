@@ -17,10 +17,14 @@ import './utils/filters'
 // 全局导入vant
 import './utils/vant'
 
+Vue.config.productionTip = false
 // 注册VueCropper
 // import VueCropper from 'vue-cropper'
 // Vue.use(VueCropper)
 
+const bus = new Vue()
+// 挂载到原型上
+Vue.prototype.$bus = bus
 Vue.config.productionTip = false
 window.vm = new Vue({
   router,

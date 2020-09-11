@@ -5,7 +5,7 @@
         <span class="iconfont iconnew"></span>
       </div>
       <div class="search">
-        <div class="search-box">
+        <div class="search-box" @click="$router.push('/search')">
           <span class="iconfont iconsearch"></span>
           <span>搜索新闻</span>
         </div>
@@ -42,6 +42,8 @@
 
 <script>
 export default {
+  // 组建的name   1.递归的时候渲染自己=======2.缓存的时候通过name 进行缓存
+  name: 'index',
   data () {
     return {
       active: 0,
